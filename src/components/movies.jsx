@@ -41,7 +41,14 @@ class Movies extends Component {
   };
 
   handleSort = (path) => {
-    this.setState({ sortColumn: { path, order: "asc" } });
+    const sortColumn = { ...this.state.sortColumn };
+    if (sortColumn.path === path) {
+      sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
+    } else {
+      sortColumn.path = path;
+      sortColumn.order = "asc";
+    }
+    this.setState({ sortColumn });
   };
 
   render() {
@@ -59,7 +66,7 @@ class Movies extends Component {
       selectedItem && selectedItem._id
         ? allMovies.filter((m) => m.genre.name === selectedItem.name)
         : allMovies;
-    const sorted = _.orderBy(filtered, [sortColumn.path], ["asc"]);
+    const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
     const movies = paginate(sorted, currentPage, pageSize);
     return (
       <div className="row">
