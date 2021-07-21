@@ -1,10 +1,9 @@
 import React, { Component } from "react";
+import Input from "./common/input";
 
 class LoginForm extends Component {
   state = {
-    account: { username: undefined, password: "" },
-    //   If it is undefined or username is deleted from the state(which also means it is undefined)=> throws an error when input is changed
-    //   the above code (username:null) throws an error in the console as soon as the component mounts
+    account: { username: "", password: "" },
   };
   handleSubmit = (e) => {
     e.preventDefault();
@@ -22,29 +21,19 @@ class LoginForm extends Component {
       <div>
         <h1>Login Form </h1>
         <form onSubmit={this.handleSubmit}>
-          <div className='form-group'>
-            <label htmlFor='username'>Username</label>
-            <input
-              autoFocus
-              name='username'
-              id='username'
-              type='text'
-              className='form-control'
-              value={account.username}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div className='form-group'>
-            <label htmlFor='password'>Password</label>
-            <input
-              id='password'
-              type='text'
-              className='form-control'
-              name='password'
-              onChange={this.handleChange}
-              value={account.password}
-            />
-          </div>
+          <Input
+            name='username'
+            value={account.username}
+            label='Username'
+            onChange={this.handleChange}
+          />
+          <Input
+            name='password'
+            value={account.password}
+            label='Password'
+            onChange={this.handleChange}
+          />
+
           <button className='btn btn-primary'>Login</button>
         </form>
       </div>
