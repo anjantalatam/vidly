@@ -2,7 +2,9 @@ import React, { Component } from "react";
 
 class LoginForm extends Component {
   state = {
-    account: { username: "", password: "" },
+    account: { username: undefined, password: "" },
+    //   If it is undefined or username is deleted from the state(which also means it is undefined)=> throws an error when input is changed
+    //   the above code (username:null) throws an error in the console as soon as the component mounts
   };
   handleSubmit = (e) => {
     e.preventDefault();
