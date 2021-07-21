@@ -9,12 +9,13 @@ class LoginForm extends Component {
     // Code that goes to server
     console.log("Form Submitted");
   };
-  handleChange = (e) => {
+  handleChange = ({ target: input }) => {
     const account = { ...this.state.account };
-    account.username = e.target.value;
+    account[input.name] = input.value;
     this.setState({ account });
   };
   render() {
+    const { account } = this.state;
     return (
       <div>
         <h1>Login Form </h1>
@@ -27,7 +28,7 @@ class LoginForm extends Component {
               id='username'
               type='text'
               className='form-control'
-              value={this.state.account.username}
+              value={account.username}
               onChange={this.handleChange}
             />
           </div>
@@ -39,6 +40,7 @@ class LoginForm extends Component {
               className='form-control'
               name='password'
               onChange={this.handleChange}
+              value={account.password}
             />
           </div>
           <button className='btn btn-primary'>Login</button>
