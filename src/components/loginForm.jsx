@@ -5,8 +5,17 @@ class LoginForm extends Component {
   state = {
     account: { username: "", password: "" },
   };
+
+  validate = () => {
+    return { username: "Username is required" };
+  };
+
   handleSubmit = (e) => {
     e.preventDefault();
+    const errors = this.validate();
+    this.setState({ errors });
+    if (errors) return;
+
     // Code that goes to server
     console.log("Form Submitted");
   };
