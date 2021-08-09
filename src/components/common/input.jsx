@@ -11,6 +11,7 @@ const Input = ({ name, label, value, onChange }) => {
         className='form-control'
         value={value}
         onChange={onChange}
+        autoComplete='off'
       />
     </div>
   );
