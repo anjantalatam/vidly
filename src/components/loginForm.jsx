@@ -16,6 +16,20 @@ class LoginForm extends Component {
     return errors;
   };
 
+  validateProperty = ({ name, value }) => {
+    const errors = { ...this.state.errors };
+    if (value.trim() === "") errors[name] = `${name} is required`;
+    else delete errors[name];
+    return errors;
+  };
+
+  handleChange = ({ target: input }) => {
+    const account = { ...this.state.account };
+    const errors = this.validateProperty(input);
+    account[input.name] = input.value;
+    this.setState({ account, errors });
+  };
+
   handleSubmit = (e) => {
     e.preventDefault();
     const errors = this.validate();
@@ -25,11 +39,6 @@ class LoginForm extends Component {
 
     // Code that goes to server
     console.log("Form Submitted");
-  };
-  handleChange = ({ target: input }) => {
-    const account = { ...this.state.account };
-    account[input.name] = input.value;
-    this.setState({ account });
   };
   render() {
     const { account, errors } = this.state;
