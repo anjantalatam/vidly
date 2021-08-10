@@ -17,23 +17,25 @@ class LoginForm extends Component {
     const errors = {};
     const options = { abortEarly: false };
     const { error } = Joi.validate(this.state.account, this.schema, options);
-
     error &&
       error.details.forEach((error) => (errors[error.path[0]] = error.message));
-
     return errors;
   };
 
   validateProperty = ({ name, value }) => {
-    const errors = { ...this.state.errors };
-    if (value.trim() === "") errors[name] = `${name} is required`;
-    else delete errors[name];
-    return errors;
+    const obj = { [name]: value };
+    const schema = { [name]: this.schema[name] };
+    const { error } = Joi.validate(obj, schema, { abortEarly: false });
+    console.log(Joi.validate(obj, schema));
+    return error ? error.details[0].message : null;
   };
 
   handleChange = ({ target: input }) => {
+    const errors = { ...this.state.errors };
     const account = { ...this.state.account };
-    const errors = this.validateProperty(input);
+    const errorMessage = this.validateProperty(input);
+    if (errorMessage) errors[input.name] = errorMessage;
+    else delete errors[input.name];
     account[input.name] = input.value;
     this.setState({ account, errors });
   };
