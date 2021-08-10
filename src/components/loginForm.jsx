@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Input from "./common/input";
+import Joi from "joi-browser";
 
 class LoginForm extends Component {
   state = {
@@ -7,8 +8,19 @@ class LoginForm extends Component {
     errors: {},
   };
 
+  schema = {
+    username: Joi.string().required(),
+    password: Joi.string().required(),
+  };
+
   validate = () => {
     const errors = {};
+
+    const output = Joi.validate(this.state.account, this.schema, {
+      abortEarly: false,
+    });
+    console.log(output);
+
     const { username, password } = this.state.account;
     if (username.trim() === "") errors.username = "Username is required";
     if (password.trim() === "") errors.password = "Password is required";
