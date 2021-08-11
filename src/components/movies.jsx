@@ -6,6 +6,7 @@ import ListGroup from "./common/listGroup";
 import { getGenres } from "../services/fakeGenreService";
 import MoviesTable from "./moviesTable";
 import _ from "lodash";
+import { Link } from "react-router-dom";
 class Movies extends Component {
   state = {
     movies: [],
@@ -69,15 +70,22 @@ class Movies extends Component {
     const { data: movies, totalCount } = this.getPagedData();
 
     return (
-      <div className="row">
-        <div className="col-3">
+      <div className='row'>
+        <div className='col-3'>
           <ListGroup
             items={this.state.genres}
             onItemSelect={this.handleGenreSelect}
             selectedItem={this.state.selectedItem}
           />
         </div>
-        <div className="col">
+        <div className='col'>
+          <Link
+            className='btn btn-primary'
+            to='/movies/new'
+            style={{ marginBottom: 20 }}
+          >
+            New Movie
+          </Link>
           <p>Showing {count} movies in the database</p>
           <MoviesTable
             movies={movies}
