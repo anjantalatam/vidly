@@ -21,7 +21,7 @@ class Movies extends Component {
 
   componentDidMount() {
     const genres = [{ _id: "", name: "All Movies" }, ...getGenres()];
-    this.setState({ movies: getMovies(), genres });
+    this.setState({ movies: getMovies(), genres, selectedGenre: genres[0] });
   }
   handleDelete = (movieId) => {
     const movies = this.state.movies.filter((movie) => movie._id !== movieId);
